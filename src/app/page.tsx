@@ -1,3 +1,4 @@
+"use client";
 export default function Home() {
   return (
     <>
@@ -7,10 +8,14 @@ export default function Home() {
         </div>
         <div className="flex justify-around pb-2">
           <div className="bg-slate-300 text-black w-[80px] text-xl flex justify-center items-center rounded-md cursor-pointer">
-            <button>Login</button>
+            <button onClick={() => (window.location.href = "/login")}>
+              Log In
+            </button>
           </div>
           <div className="bg-slate-300 text-black w-[80px] text-xl flex justify-center items-center rounded-md cursor-pointer">
-            <button>Signup</button>
+            <button onClick={() => (window.location.href = "/signup")}>
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
