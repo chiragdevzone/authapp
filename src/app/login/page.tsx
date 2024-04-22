@@ -2,7 +2,8 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Span } from "next/dist/trace";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function Login() {
   interface FormData {
@@ -23,9 +24,10 @@ export default function Login() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(signinSchema) });
 
+  const stateEmail = useSelector((state) => state.email);
+
   const submitData = (data: FormData) => {
     if (data) {
-      console.log(data);
     }
   };
 

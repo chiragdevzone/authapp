@@ -3,9 +3,12 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signupAuth } from "@/redux/features/authSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 export default function Signup() {
-  interface FormData {
+  interface FormDataType {
     firstName: string;
     lastName: string;
     email: string;
@@ -46,15 +49,23 @@ export default function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<FormDataType>({
     resolver: zodResolver(signupSchema),
   });
 
-  const submitData = (data: FormData) => {
-    console.log(data);
-    if (data) {
-      window.location.href = "/login";
-    }
+  const dispatch = useDispatch();
+
+  const submitData = (data: FormDataType) => {
+    dispatch(
+      signupAuth({
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      })
+    );
+
+    // window.location.href = "/login";
   };
 
   return (

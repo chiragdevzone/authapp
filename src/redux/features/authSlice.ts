@@ -1,14 +1,13 @@
-"use client";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { log } from "console";
+import { act } from "react-dom/test-utils";
 
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-
-interface AuthType {
-  firstName: string;
-  lastName: string;
+export interface AuthType {
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
-  authStatus: boolean;
+  authStatus?: boolean;
 }
 
 const initialState: AuthType = {
@@ -19,7 +18,7 @@ const initialState: AuthType = {
   authStatus: false,
 };
 
-export const auth = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -29,19 +28,15 @@ export const auth = createSlice({
       state.lastName = lastName;
       state.email = email;
       state.password = password;
-    },
-    loginAuth: (state, action: PayloadAction<AuthType>) => {
-      const { email, password } = action.payload;
 
-      if (email === state.email && password === state.password) {
-        state.authStatus = true;
-      }
+      console.log(state.firstName, state.lastName, state.email, state.password);
     },
+
     logoutAuth: (state) => {
       state.authStatus = false;
     },
   },
 });
 
-export const { signupAuth, loginAuth } = auth.actions;
-export default auth.reducer;
+export const { signupAuth, logoutAuth } = authSlice.actions;
+export default authSlice.reducer;
