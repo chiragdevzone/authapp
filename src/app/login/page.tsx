@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { AuthType } from "@/redux/features/authSlice";
+import { log } from "console";
 
 export default function Login() {
   interface FormData {
@@ -24,10 +26,17 @@ export default function Login() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(signinSchema) });
 
-  const stateEmail = useSelector((state) => state.email);
+  const stateEmail = useSelector((state: AuthType) => state.email);
+  const statePassword = useSelector((state: AuthType) => state.password);
 
   const submitData = (data: FormData) => {
     if (data) {
+      if (stateEmail && statePassword) {
+        // console.log({ stateEmail, statePassword });
+        console.log("data hai");
+      } else {
+        console.log("please enter a valid email and password");
+      }
     }
   };
 

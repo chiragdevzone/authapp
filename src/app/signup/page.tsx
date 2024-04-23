@@ -64,8 +64,7 @@ export default function Signup() {
         lastName: data.lastName,
       })
     );
-
-    // window.location.href = "/login";
+    setTimeout((window.location.href = "/login"), 50000);
   };
 
   return (

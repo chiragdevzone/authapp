@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { log } from "console";
-import { act } from "react-dom/test-utils";
 
 export interface AuthType {
   firstName?: string;
@@ -29,7 +27,7 @@ const authSlice = createSlice({
       state.email = email;
       state.password = password;
 
-      console.log(state.firstName, state.lastName, state.email, state.password);
+      console.log({ ...state });
     },
 
     logoutAuth: (state) => {
