@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupAuth } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
   interface FormDataType {
@@ -54,6 +54,7 @@ export default function Signup() {
   });
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const submitData = (data: FormDataType) => {
     dispatch(
@@ -64,7 +65,12 @@ export default function Signup() {
         lastName: data.lastName,
       })
     );
-    setTimeout((window.location.href = "/login"), 50000);
+
+    console.log(data);
+
+    setTimeout(() => {
+      router.push("/login");
+    }, 5000);
   };
 
   return (

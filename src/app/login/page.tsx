@@ -2,10 +2,10 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { AuthType } from "@/redux/features/authSlice";
-import { log } from "console";
+import { loginAuth } from "@/redux/features/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   interface FormData {
@@ -26,14 +26,21 @@ export default function Login() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(signinSchema) });
 
-  const stateEmail = useSelector((state: AuthType) => state.email);
-  const statePassword = useSelector((state: AuthType) => state.password);
+  const stateEmail = useSelector((state: RootState) => state.auth.email);
+  const statePassword = useSelector((state: RootState) => state.auth.password);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const submitData = (data: FormData) => {
     if (data) {
-      if (stateEmail && statePassword) {
-        // console.log({ stateEmail, statePassword });
-        console.log("data hai");
+      if (data.email === stateEmail && data.password === statePassword) {
+        const authStatus = true;
+        dispatch(loginAuth({ authStatus }));
+        console.log(data);
+
+        setTimeout(() => {
+          router.push("/");
+        }, 5000);
       } else {
         console.log("please enter a valid email and password");
       }
