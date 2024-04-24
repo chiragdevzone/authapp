@@ -26,8 +26,6 @@ const authSlice = createSlice({
       state.lastName = lastName;
       state.email = email;
       state.password = password;
-
-      console.log({ ...state });
     },
 
     loginAuth: (state, action: PayloadAction<AuthType>) => {
